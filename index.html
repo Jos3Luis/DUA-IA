@@ -1,0 +1,587 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Asistente DUA-IA</title>
+<style>
+:root {
+  --azul:#123b85;
+  --primario:#0866ed;
+  --claro:#edf4ff;
+  --verde:#10b981;
+  --morado:#8b42dc;
+  --texto:#142b52;
+}
+* {box-sizing:border-box}
+body {
+  margin:0;
+  background:#f3f6fc;
+  font-family:Segoe UI,Arial,sans-serif;
+  color:var(--texto);
+}
+header {
+  background:linear-gradient(100deg,#123477,#2465d5);
+  color:white;
+  padding:16px 24px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:15px;
+  flex-wrap:wrap;
+}
+.logo {font-size:22px;font-weight:bold}
+nav {display:flex;flex-wrap:wrap;gap:7px}
+nav button {
+  background:#ffffff20;
+  border:1px solid #ffffff55;
+  border-radius:9px;
+  color:white;
+  padding:10px;
+  cursor:pointer;
+}
+nav button.active {
+  background:white;
+  color:var(--azul);
+  font-weight:bold;
+}
+main {max-width:1180px;margin:25px auto;padding:0 16px}
+.pantalla {display:none}
+.pantalla.activa {display:block}
+h1,h2 {color:var(--azul)}
+.card {
+  background:white;
+  border-radius:16px;
+  padding:22px;
+  box-shadow:0 5px 20px #193a7712;
+  border:1px solid #e1e8f4;
+}
+.btn {
+  border:0;
+  border-radius:10px;
+  padding:12px 17px;
+  background:var(--primario);
+  color:white;
+  font-weight:bold;
+  cursor:pointer;
+}
+.btn:hover {filter:brightness(.9)}
+.btn.sec {
+  background:white;
+  color:var(--azul);
+  border:1px solid #ccd9ef;
+}
+.grid {display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.robot-area {
+  background:radial-gradient(circle,#dbeafe,#f8fbff 70%);
+  border-radius:20px;
+  display:grid;
+  place-items:center;
+  min-height:320px;
+}
+.robot {width:min(100%,280px);height:auto}
+.modos {display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.modo {
+  border:3px solid transparent;
+  padding:18px 10px;
+  border-radius:13px;
+  color:white;
+  cursor:pointer;
+  font-weight:bold;
+  text-align:center;
+}
+.modo span {display:block;font-size:30px;margin-bottom:10px}
+.modo small {display:block;font-weight:normal;margin-top:7px}
+.modo.leer {background:#0866ed}
+.modo.escuchar {background:#10ae82}
+.modo.ver {background:#8744dc}
+.modo.elegido {border-color:#ffce48;box-shadow:0 0 0 2px #fff inset}
+.chat-layout {display:grid;grid-template-columns:240px 1fr;gap:18px}
+.chat-head {
+  display:flex;
+  align-items:center;
+  gap:12px;
+  background:#eaf2ff;
+  padding:15px;
+  border-radius:12px 12px 0 0;
+}
+.avatar {
+  background:#dbeafe;
+  width:56px;height:56px;
+  border-radius:50%;
+  display:grid;place-items:center;
+  overflow:hidden;
+}
+.avatar svg {width:55px;height:55px}
+.mensajes {
+  min-height:330px;
+  max-height:390px;
+  overflow:auto;
+  background:#f9fbff;
+  padding:18px;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+.burbuja {
+  padding:13px 16px;
+  border-radius:14px;
+  max-width:85%;
+  line-height:1.55;
+  white-space:pre-wrap;
+}
+.burbuja.ia {
+  align-self:flex-start;
+  background:#e5edff;
+}
+.burbuja.usuario {
+  align-self:flex-end;
+  background:#2563eb;
+  color:white;
+}
+.entrada {display:flex;gap:9px;padding:14px}
+.entrada input {
+  flex:1;
+  min-width:0;
+  padding:13px;
+  border:1px solid #ccd9ed;
+  border-radius:10px;
+}
+.acciones {display:flex;gap:8px;flex-wrap:wrap;padding:0 14px 15px}
+.estadisticas {
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:15px;
+}
+.numero {font-size:30px;font-weight:bold;color:#164ba7}
+.barra {background:#e8eef9;height:11px;border-radius:10px;overflow:hidden}
+.barra div {background:#347af5;height:100%;border-radius:10px}
+.flujo {max-width:700px;margin:auto}
+.paso {
+  padding:20px;
+  text-align:center;
+  background:#e9f1ff;
+  border:1px solid #b9d2ff;
+  border-radius:14px;
+  font-weight:bold;
+}
+.flecha {text-align:center;font-size:28px;color:#2563eb}
+.aviso {background:#e9f8f2;padding:15px;border-radius:12px;margin-top:15px}
+.recurso {background:#f1f5ff;padding:15px;border-radius:12px;margin-top:15px}
+footer {text-align:center;color:#64748b;padding:25px;font-size:13px}
+@media(max-width:760px) {
+  .grid,.chat-layout {grid-template-columns:1fr}
+  .estadisticas {grid-template-columns:repeat(2,1fr)}
+  .modos {grid-template-columns:1fr}
+  .robot-area {min-height:230px}
+  .robot {width:200px}
+  .entrada {flex-wrap:wrap}
+  .entrada input {flex-basis:100%}
+}
+</style>
+</head>
+<body>
+
+<!-- ROBOT VECTORIAL REUTILIZABLE -->
+<svg width="0" height="0" style="position:absolute">
+<defs>
+<symbol id="robotDUA" viewBox="0 0 300 300">
+  <circle cx="150" cy="150" r="135" fill="#dbeafe"/>
+  <ellipse cx="150" cy="269" rx="74" ry="13" fill="#b3cff8"/>
+  <path d="M150 72 V51" stroke="#1852b8" stroke-width="10"
+        stroke-linecap="round"/>
+  <circle cx="150" cy="44" r="12" fill="#f9b43b"/>
+  <path d="M92 193 Q150 173 208 193 L222 246
+           Q150 277 78 246Z"
+        fill="#3985ed" stroke="#1451ac" stroke-width="5"/>
+  <path d="M83 202 Q46 189 39 218" fill="none"
+        stroke="#2463c5" stroke-width="17"
+        stroke-linecap="round"/>
+  <path d="M216 202 Q253 189 262 214" fill="none"
+        stroke="#2463c5" stroke-width="17"
+        stroke-linecap="round"/>
+  <circle cx="38" cy="219" r="18" fill="#4b9afa"/>
+  <circle cx="263" cy="215" r="18" fill="#4b9afa"/>
+  <rect x="75" y="77" width="150" height="122" rx="42"
+        fill="#3985ed" stroke="#1451ac" stroke-width="5"/>
+  <rect x="91" y="94" width="118" height="88" rx="29"
+        fill="#f4f9ff"/>
+  <circle cx="127" cy="132" r="9" fill="#174ba6"/>
+  <circle cx="173" cy="132" r="9" fill="#174ba6"/>
+  <path d="M128 156 Q150 175 172 156" fill="none"
+        stroke="#1766c9" stroke-width="6"
+        stroke-linecap="round"/>
+  <circle cx="150" cy="224" r="23" fill="white"/>
+  <path d="M150 210 V238 M136 224 H164"
+        stroke="#347af5" stroke-width="7"
+        stroke-linecap="round"/>
+  <path d="M117 258 L105 275 M183 258 L195 275"
+        stroke="#174ba6" stroke-width="13"
+        stroke-linecap="round"/>
+</symbol>
+</defs>
+</svg>
+
+<header>
+  <div class="logo">🤖 Asistente DUA-IA</div>
+  <nav>
+    <button class="active" onclick="mostrar(1,this)">1. Bienvenida</button>
+    <button onclick="mostrar(2,this)">2. Chat</button>
+    <button onclick="mostrar(3,this)">3. Docente</button>
+    <button onclick="mostrar(4,this)">4. Demo</button>
+    <button onclick="mostrar(5,this)">5. Flujo</button>
+  </nav>
+</header>
+
+<main>
+
+<!-- PANTALLA 1 -->
+<section id="p1" class="pantalla activa">
+  <h2>Pantalla 1. Bienvenida accesible</h2>
+  <div class="card grid">
+    <div class="robot-area">
+      <svg class="robot" role="img" aria-label="Robot azul del asistente">
+        <use href="#robotDUA"></use>
+      </svg>
+    </div>
+    <div>
+      <h1>¡Hola! Soy Asistente DUA-IA</h1>
+      <p>Tu compañero virtual de aprendizaje.</p>
+      <h3>¿Cómo prefieres aprender hoy?</h3>
+      <div class="modos">
+        <button class="modo leer elegido" data-modo="leer"
+                onclick="elegir('leer')">
+          <span>📖</span>Prefiero leer
+          <small>Texto claro y glosario</small>
+        </button>
+        <button class="modo escuchar" data-modo="escuchar"
+                onclick="elegir('escuchar')">
+          <span>🎧</span>Prefiero escuchar
+          <small>Audio y transcripción</small>
+        </button>
+        <button class="modo ver" data-modo="ver"
+                onclick="elegir('ver')">
+          <span>▶️</span>Prefiero ver
+          <small>Esquemas e infografías</small>
+        </button>
+      </div>
+      <p><button class="btn" onclick="ir(2)">Comenzar →</button></p>
+      <button class="btn sec" onclick="hablar('Bienvenido al Asistente DUA IA. Selecciona cómo prefieres aprender.')">
+        🔊 Leer instrucciones
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- PANTALLA 2 -->
+<section id="p2" class="pantalla">
+  <h2>Pantalla 2. Conversación con el asistente</h2>
+  <div class="chat-layout">
+    <aside class="card">
+      <h3>Mi aprendizaje</h3>
+      <p>Modalidad actual: <b class="modalidad">Leer</b></p>
+      <p>Selecciona un tema:</p>
+      <button class="btn sec" onclick="pregunta('¿Qué es la inteligencia artificial?')">Inteligencia artificial</button>
+      <p><button class="btn sec" onclick="pregunta('¿Qué es el aprendizaje automático?')">Aprendizaje automático</button></p>
+      <button class="btn sec" onclick="pregunta('¿Qué es cloud computing?')">Cloud computing</button>
+    </aside>
+    <div class="card" style="padding:0;overflow:hidden">
+      <div class="chat-head">
+        <div class="avatar">
+          <svg><use href="#robotDUA"></use></svg>
+        </div>
+        <div>
+          <b>Asistente DUA-IA</b>
+          <div style="color:#059669;font-size:12px">● Disponible</div>
+        </div>
+      </div>
+      <div id="mensajes" class="mensajes" aria-live="polite">
+        <div class="burbuja ia">
+          ¡Hola! Soy Asistente DUA-IA.
+          ¿Sobre qué tema necesitas ayuda?
+        </div>
+      </div>
+      <form class="entrada" onsubmit="enviar(event)">
+        <input id="consulta" placeholder="Escribe tu consulta..."
+               aria-label="Consulta del estudiante">
+        <button class="btn">Enviar ➤</button>
+      </form>
+      <div class="acciones">
+        <button class="btn sec" onclick="otraForma()">↻ Explicar de otra forma</button>
+        <button class="btn sec" onclick="darEjemplo()">⭐ Dar ejemplo</button>
+        <button class="btn sec" onclick="leerRespuesta()">🔊 Escuchar</button>
+        <button class="btn sec" onclick="guardar()">⬇ Guardar conversación</button>
+      </div>
+    </div>
+  </div>
+  <div class="recurso" id="recurso">
+    💡 Recurso complementario: realiza una consulta para recibir una recomendación.
+  </div>
+</section>
+
+<!-- PANTALLA 3 -->
+<section id="p3" class="pantalla">
+  <h2>Pantalla 3. Panel docente</h2>
+  <p>Seguimiento del aprendizaje mediante indicadores de demostración.</p>
+  <div class="estadisticas">
+    <div class="card"><small>💬 Consultas</small><div class="numero" id="total">0</div>Realizadas</div>
+    <div class="card"><small>👥 Estudiantes</small><div class="numero">1</div>Sesión de prueba</div>
+    <div class="card"><small>⚠️ Solicitudes de refuerzo</small><div class="numero" id="refuerzos">0</div>Explicaciones adicionales</div>
+    <div class="card"><small>📚 Modalidad</small><div class="numero modalidad" style="font-size:23px">Leer</div>Seleccionada</div>
+  </div>
+  <div class="grid" style="margin-top:20px">
+    <div class="card">
+      <h3>Consultas por modalidad</h3>
+      <div id="estadisticasModo"></div>
+    </div>
+    <div class="card">
+      <h3>Consultas recientes</h3>
+      <div id="consultasRecientes">Aún no hay consultas.</div>
+      <div class="aviso">
+        Recomendación: reforzar los temas que generan más preguntas
+        y ofrecer materiales en diferentes formatos.
+      </div>
+    </div>
+  </div>
+  <p><small>Los datos corresponden únicamente a esta demostración, no a estudiantes reales.</small></p>
+</section>
+
+<!-- PANTALLA 4 -->
+<section id="p4" class="pantalla">
+  <h2>Pantalla 4. Demo interactiva</h2>
+  <div class="grid">
+    <div class="card">
+      <h3>¿Cómo prefieres aprender?</h3>
+      <div class="modos" style="grid-template-columns:1fr">
+        <button class="modo leer elegido" data-modo="leer" onclick="elegir('leer')">📖 Leer</button>
+        <button class="modo escuchar" data-modo="escuchar" onclick="elegir('escuchar')">🎧 Escuchar</button>
+        <button class="modo ver" data-modo="ver" onclick="elegir('ver')">▶️ Visualizar</button>
+      </div>
+    </div>
+    <div class="card">
+      <div style="display:flex;align-items:center;gap:12px">
+        <div class="avatar">
+          <svg><use href="#robotDUA"></use></svg>
+        </div>
+        <b>¡Hola! Soy tu asistente virtual.</b>
+      </div>
+      <p>¿Qué es la inteligencia artificial?</p>
+      <button class="btn" onclick="demostrar()">Generar explicación</button>
+      <div id="respuestaDemo" class="recurso">
+        Selecciona una modalidad y pulsa el botón.
+      </div>
+      <button class="btn sec" onclick="ir(2)">Abrir chat completo →</button>
+    </div>
+  </div>
+  <div class="card" style="margin-top:18px">
+    <h3>Características del asistente</h3>
+    <p>✅ Aprendizaje flexible · ✅ Explicaciones alternativas · ✅ Ejemplos prácticos · ✅ Seguimiento docente</p>
+  </div>
+</section>
+
+<!-- PANTALLA 5 -->
+<section id="p5" class="pantalla">
+  <h2>Pantalla 5. Flujo de interacción</h2>
+  <div class="card">
+    <div class="flujo">
+      <div class="paso">👤 El estudiante accede al Asistente DUA-IA</div>
+      <div class="flecha">↓</div>
+      <div class="paso">📖 Selecciona leer, escuchar o visualizar</div>
+      <div class="flecha">↓</div>
+      <div class="paso">💬 Realiza una consulta sobre un tema</div>
+      <div class="flecha">↓</div>
+      <div class="paso">🧠 La IA procesa la consulta y adapta la respuesta</div>
+      <div class="flecha">↓</div>
+      <div class="paso">📊 Se registra la interacción para el docente</div>
+      <div class="flecha">↓</div>
+      <div class="paso">✅ Se recomienda el siguiente recurso de aprendizaje</div>
+    </div>
+    <p style="text-align:center;margin-top:20px">
+      <button class="btn" onclick="ir(1)">↻ Reiniciar recorrido</button>
+    </p>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  Asistente DUA-IA · Prototipo académico interactivo ·
+  Diseño preliminar basado en el modelo SAM
+</footer>
+
+<script>
+let modo="leer";
+let consultas=[];
+let refuerzos=0;
+let ultimaPregunta="";
+let ultimaRespuesta="";
+
+function mostrar(n,boton) {
+  document.querySelectorAll(".pantalla").forEach(p=>{
+    p.classList.remove("activa");
+  });
+  document.getElementById("p"+n).classList.add("activa");
+  document.querySelectorAll("nav button").forEach(b=>{
+    b.classList.remove("active");
+  });
+  if(boton) boton.classList.add("active");
+  else document.querySelectorAll("nav button")[n-1].classList.add("active");
+  if(n===3) actualizarPanel();
+  window.scrollTo(0,0);
+}
+
+function ir(n) {mostrar(n)}
+
+function elegir(valor) {
+  modo=valor;
+  const nombres={leer:"Leer",escuchar:"Escuchar",ver:"Visualizar"};
+  document.querySelectorAll(".modalidad").forEach(e=>{
+    e.textContent=nombres[modo];
+  });
+  document.querySelectorAll(".modo").forEach(b=>{
+    b.classList.toggle("elegido",b.dataset.modo===modo);
+  });
+}
+
+function hablar(texto) {
+  if(!("speechSynthesis" in window)) {
+    alert("Tu navegador no admite lectura en voz alta.");
+    return;
+  }
+  speechSynthesis.cancel();
+  const voz=new SpeechSynthesisUtterance(texto);
+  voz.lang="es-ES";
+  voz.rate=0.95;
+  speechSynthesis.speak(voz);
+}
+
+function respuesta(texto) {
+  let q=texto.toLowerCase();
+  let r="";
+  if(q.includes("cloud")||q.includes("nube")) {
+    r="Cloud computing permite utilizar servidores, almacenamiento y aplicaciones a través de internet.\n\nEjemplo: guardar documentos en la nube para acceder desde distintos dispositivos.";
+  } else if(q.includes("aprendizaje automático")) {
+    r="El aprendizaje automático permite que los sistemas identifiquen patrones a partir de datos.\n\nEjemplo: una plataforma que recomienda películas según tus preferencias.";
+  } else if(q.includes("inteligencia artificial")||q.includes("ia")) {
+    r="La inteligencia artificial es una tecnología que permite a las máquinas realizar tareas como reconocer patrones, comprender preguntas y generar respuestas.\n\nEjemplo: un asistente virtual que explica conceptos a los estudiantes.";
+  } else {
+    r="Vamos a estudiar tu consulta: "+texto+
+    "\n\nPrimero identifica el concepto principal, luego revisa sus características y finalmente relaciónalo con un ejemplo cotidiano.";
+  }
+  if(modo==="ver") {
+    r+="\n\n🖼️ Esquema visual:\nConcepto → Características → Ejemplo → Aplicación";
+  }
+  return r;
+}
+
+function agregar(texto,tipo) {
+  const d=document.createElement("div");
+  d.className="burbuja "+tipo;
+  d.textContent=texto;
+  const zona=document.getElementById("mensajes");
+  zona.appendChild(d);
+  zona.scrollTop=zona.scrollHeight;
+}
+
+function procesar(texto) {
+  if(!texto.trim()) return;
+  ultimaPregunta=texto;
+  agregar(texto,"usuario");
+  consultas.push({texto,modo});
+  ultimaRespuesta=respuesta(texto);
+  agregar(ultimaRespuesta,"ia");
+  document.getElementById("recurso").textContent=
+    "💡 Siguiente paso: escribe un ejemplo propio o solicita una explicación alternativa.";
+  if(modo==="escuchar") hablar(ultimaRespuesta);
+  actualizarPanel();
+}
+
+function enviar(evento) {
+  evento.preventDefault();
+  const input=document.getElementById("consulta");
+  procesar(input.value);
+  input.value="";
+}
+
+function pregunta(texto) {procesar(texto)}
+
+function otraForma() {
+  if(!ultimaPregunta) {
+    agregar("Primero realiza una consulta.","ia");
+    return;
+  }
+  refuerzos++;
+  ultimaRespuesta="Vamos a explicarlo de manera sencilla. Piensa en una situación cotidiana relacionada con: "+ultimaPregunta+
+    "\n\nIdentifica qué problema resuelve, cómo funciona y para qué puede servir.";
+  agregar(ultimaRespuesta,"ia");
+  actualizarPanel();
+}
+
+function darEjemplo() {
+  ultimaRespuesta="Ejemplo práctico: un estudiante utiliza un asistente virtual para comprender un concepto, recibe una explicación sencilla y después intenta resolver una actividad por su cuenta.";
+  agregar(ultimaRespuesta,"ia");
+}
+
+function leerRespuesta() {
+  if(ultimaRespuesta) hablar(ultimaRespuesta);
+}
+
+function guardar() {
+  const texto=[...document.querySelectorAll("#mensajes .burbuja")]
+    .map(e=>e.textContent).join("\n\n");
+  const blob=new Blob([texto],{type:"text/plain;charset=utf-8"});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement("a");
+  a.href=url;
+  a.download="Conversacion_DUA_IA.txt";
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+function demostrar() {
+  const texto=respuesta("¿Qué es la inteligencia artificial?");
+  document.getElementById("respuestaDemo").textContent=texto;
+  if(modo==="escuchar") hablar(texto);
+}
+
+function actualizarPanel() {
+  document.getElementById("total").textContent=consultas.length;
+  document.getElementById("refuerzos").textContent=refuerzos;
+
+  const nombres={leer:"Leer",escuchar:"Escuchar",ver:"Visualizar"};
+  const total=Math.max(consultas.length,1);
+  const contadores={leer:0,escuchar:0,ver:0};
+  consultas.forEach(c=>contadores[c.modo]++);
+
+  const zona=document.getElementById("estadisticasModo");
+  zona.replaceChildren();
+
+  Object.keys(contadores).forEach(m=>{
+    const porcentaje=Math.round(contadores[m]/total*100);
+    const titulo=document.createElement("p");
+    titulo.textContent=nombres[m]+" — "+porcentaje+"%";
+    const barra=document.createElement("div");
+    barra.className="barra";
+    const relleno=document.createElement("div");
+    relleno.style.width=porcentaje+"%";
+    barra.appendChild(relleno);
+    zona.append(titulo,barra);
+  });
+
+  const recientes=document.getElementById("consultasRecientes");
+  recientes.replaceChildren();
+  if(!consultas.length) {
+    recientes.textContent="Aún no hay consultas.";
+    return;
+  }
+  consultas.slice(-5).reverse().forEach(c=>{
+    const p=document.createElement("p");
+    p.textContent="💬 "+c.texto+" ("+nombres[c.modo]+")";
+    recientes.appendChild(p);
+  });
+}
+actualizarPanel();
+</script>
+</body>
+</html>
