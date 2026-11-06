@@ -91,7 +91,7 @@ h1,h2 {color:var(--azul)}
   font-weight:bold;
   text-align:center;
 }
-.modo span {display:block;font-size:30px;margin-bottom:10px}
+.modo span {display:block;font-size:50px;margin-bottom:10px}
 .modo small {display:block;font-weight:normal;margin-top:7px}
 .modo.leer {background:#0866ed}
 .modo.escuchar {background:#10ae82}
@@ -179,6 +179,74 @@ footer {text-align:center;color:#64748b;padding:25px;font-size:13px}
   .entrada {flex-wrap:wrap}
   .entrada input {flex-basis:100%}
 }
+.robot-area {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.robot {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: contain;
+}
+
+/* Mejoras panel docente: conserva la paleta original */
+.docente-icono{display:block;font-size:50px;line-height:1.2;margin-bottom:12px}
+.docente-metrica{min-height:165px}
+.docente-metrica small{font-size:13px;font-weight:600}
+.docente-metrica .numero{margin:10px 0 5px}
+.docente-panel-title{display:flex;align-items:center;gap:14px}
+.docente-panel-title .docente-icono{margin:0;font-size:50px}
+.docente-chart{display:flex;align-items:center;justify-content:center;gap:24px;flex-wrap:wrap;margin:20px 0}
+.donut{--leer:0%;--escuchar:0%;width:210px;height:210px;border-radius:50%;background:conic-gradient(#0866ed 0 var(--leer),#10ae82 var(--leer) var(--escuchar),#8744dc var(--escuchar) 100%);display:grid;place-items:center;flex-shrink:0}
+.donut-center{width:145px;height:145px;background:white;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.donut-center strong{font-size:32px;color:#123b85}.donut-center small{font-size:12px;color:#64748b}
+.donut-legend{display:grid;gap:12px;min-width:165px}
+.legend-item{display:flex;align-items:center;gap:9px;font-size:14px}
+.legend-dot{height:12px;width:12px;border-radius:50%;display:inline-block}
+@media(max-width:760px){.docente-chart{gap:12px}.donut{width:180px;height:180px}.donut-center{width:125px;height:125px}}
+
+.ayuda-modalidad{font-size:13px;color:#64748b}.estado-flujo{background:#f0f6ff;border-bottom:1px solid #e0e9f8;padding:11px 17px;font-size:12px;color:#123b85}
+.resultado-adaptado{margin-top:18px}.resultado-adaptado[hidden]{display:none}.resultado-adaptado h3{margin-top:0}.glosario{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px}.glosario>div{padding:13px;border:1px solid #d7e5fc;border-radius:12px;background:#f6f9ff}.audio-controles{display:flex;flex-wrap:wrap;gap:10px;margin:15px 0}.transcripcion{background:#f3f7ff;border-left:4px solid #10ae82;padding:15px;white-space:pre-wrap;line-height:1.6}.visual-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:18px 0}.visual-node{border:2px solid #c8d9ff;background:#f2f7ff;border-radius:14px;padding:20px 12px;cursor:pointer;color:#123b85;font-weight:700;min-height:95px}.visual-node:hover,.visual-node:focus{border-color:#8744dc;background:#f1e9ff}.visual-detalle{background:#f3edff;border-radius:12px;padding:16px;min-height:65px}.genially-frame{width:100%;height:560px;border:1px solid #dce5f3;border-radius:12px}@media(max-width:760px){.visual-grid{grid-template-columns:1fr}.genially-frame{height:320px}}
+
+.vista-bienvenida{margin-top:16px;background:#f6f9ff;border:1px solid #cbdcf9;border-radius:14px;padding:18px;line-height:1.6}
+.vista-bienvenida h3{margin:0 0 10px;color:#123b85}.vista-bienvenida p{margin:8px 0}
+.mini-glosario{border-left:4px solid #0866ed;padding:8px 14px;background:white;border-radius:8px;margin-top:12px}
+.demo-infografia{display:flex;align-items:center;justify-content:space-between;gap:7px;margin:15px 0;flex-wrap:wrap}
+.demo-infografia button{flex:1;min-width:100px;cursor:pointer;border:2px solid #bad1fa;background:#e8f1ff;color:#123b85;border-radius:12px;padding:14px 8px;font-weight:bold}
+.demo-infografia button:nth-of-type(2){background:#e9f9f4;border-color:#a4e4d1}
+.demo-infografia button:nth-of-type(3){background:#f3eaff;border-color:#d5b8fa}
+.demo-infografia button span{display:block;font-size:38px;margin-bottom:5px}.demo-flecha{font-size:22px;color:#0866ed}
+.nota-genially{font-size:12px;color:#61718a}.vista-bienvenida details{background:white;border-radius:9px;padding:12px;cursor:pointer}
+@media(max-width:520px){.demo-infografia{flex-direction:column}.demo-infografia button{width:100%}.demo-flecha{transform:rotate(90deg)}}
+.vista-cabecera{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:18px;flex-wrap:wrap}
+.pill-modalidad{background:#eaf2ff;color:#123b85;border-radius:999px;padding:10px 16px;font-weight:700}
+.vista-modalidad-completa{min-height:440px;display:flex;flex-direction:column;justify-content:space-between}
+.vista-modalidad-completa .vista-bienvenida{margin:0;border:0;background:transparent;padding:14px 4px;font-size:17px}
+.vista-modalidad-completa .vista-bienvenida h3{font-size:26px;margin-bottom:20px}
+.vista-modalidad-completa .demo-infografia{margin:35px 0}
+.vista-modalidad-completa .demo-infografia button{min-height:145px;font-size:16px}
+.vista-pie{border-top:1px solid #e1e8f4;padding-top:20px;display:flex;gap:12px;justify-content:flex-end;flex-wrap:wrap}
+
+.busqueda-tema{background:#edf4ff;border:1px solid #cbdcf9;border-radius:14px;padding:22px;margin-bottom:20px}
+.busqueda-tema h2{margin:0 0 8px;font-size:21px}
+.busqueda-tema form{display:flex;gap:10px;flex-wrap:wrap;margin:15px 0}
+.busqueda-tema input{flex:1;min-width:220px;border:1px solid #b9cceb;border-radius:10px;padding:13px;font-size:15px}
+.temas-sugeridos{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.temas-sugeridos button{border:1px solid #a7c3ee;background:#fff;color:#123b85;border-radius:999px;padding:9px 12px;cursor:pointer}
+.temas-sugeridos button:hover{background:#dbeafe}
+#resultadoVentana{margin-top:18px;background:#fff;border:1px solid #e1e8f4;border-radius:12px;padding:20px;line-height:1.6}
+#resultadoVentana[hidden]{display:none}
+@media(max-width:650px){.busqueda-tema form .btn{width:100%}}
+
+.mensaje-genially{width:100%;max-width:100%!important;display:flex;flex-direction:column;gap:12px}
+.genially-chat-frame{width:100%;height:490px;border:1px solid #ccd9ef;border-radius:12px;background:white}
+#botonMicrofono[hidden],#botonDetenerAudio[hidden]{display:none!important}
+@media(max-width:760px){.genially-chat-frame{height:340px}}
 </style>
 </head>
 <body>
@@ -227,10 +295,8 @@ footer {text-align:center;color:#64748b;padding:25px;font-size:13px}
   <div class="logo">🤖 Asistente DUA-IA</div>
   <nav>
     <button class="active" onclick="mostrar(1,this)">1. Bienvenida</button>
-    <button onclick="mostrar(2,this)">2. Chat</button>
+    <button onclick="abrirChat(modo)">2. Chat</button>
     <button onclick="mostrar(3,this)">3. Docente</button>
-    <button onclick="mostrar(4,this)">4. Demo</button>
-    <button onclick="mostrar(5,this)">5. Flujo</button>
   </nav>
 </header>
 
@@ -238,49 +304,52 @@ footer {text-align:center;color:#64748b;padding:25px;font-size:13px}
 
 <!-- PANTALLA 1 -->
 <section id="p1" class="pantalla activa">
-  <h2>Pantalla 1. Bienvenida accesible</h2>
+  <h2>Bienvenidos</h2>
   <div class="card grid">
     <div class="robot-area">
-      <svg class="robot" role="img" aria-label="Robot azul del asistente">
-        <use href="#robotDUA"></use>
-      </svg>
+      <img
+    src="Robot.png" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"
+    class="robot"
+    alt="Robot azul del asistente"   /><svg class="robot" style="display:none" viewBox="0 0 300 300" aria-label="Robot de respaldo"><use href="#robotDUA"></use></svg>
     </div>
     <div>
+      <button class="btn sec" onclick="hablar('Bienvenido al Asistente DUA IA. Selecciona cómo prefieres aprender.')">
+        🔊 Leer en voz alta
+      </button>
       <h1>¡Hola! Soy Asistente DUA-IA</h1>
       <p>Tu compañero virtual de aprendizaje.</p>
       <h3>¿Cómo prefieres aprender hoy?</h3>
       <div class="modos">
         <button class="modo leer elegido" data-modo="leer"
-                onclick="elegir('leer')">
+                onclick="abrirChat('leer')">
           <span>📖</span>Prefiero leer
           <small>Texto claro y glosario</small>
         </button>
         <button class="modo escuchar" data-modo="escuchar"
-                onclick="elegir('escuchar')">
+                onclick="abrirChat('escuchar')">
           <span>🎧</span>Prefiero escuchar
           <small>Audio y transcripción</small>
         </button>
         <button class="modo ver" data-modo="ver"
-                onclick="elegir('ver')">
+                onclick="abrirChat('ver')">
           <span>▶️</span>Prefiero ver
-          <small>Esquemas e infografías</small>
+          <small>Infografía interactiva (Genially)</small>
         </button>
       </div>
-      <p><button class="btn" onclick="ir(2)">Comenzar →</button></p>
-      <button class="btn sec" onclick="hablar('Bienvenido al Asistente DUA IA. Selecciona cómo prefieres aprender.')">
-        🔊 Leer instrucciones
-      </button>
+      <p class="ayuda-modalidad">Elige cómo quieres recibir las respuestas del chat.</p>
+      <p><button class="btn" onclick="abrirChat(modo)">Comenzar → Chat</button></p>
+      
     </div>
   </div>
 </section>
 
 <!-- PANTALLA 2 -->
 <section id="p2" class="pantalla">
-  <h2>Pantalla 2. Conversación con el asistente</h2>
+  <h2 id="tituloChat">📖 Chat · Prefiero leer</h2><p id="descripcionChat">Escribe una consulta o elige un tema sugerido.</p>
   <div class="chat-layout">
     <aside class="card">
       <h3>Mi aprendizaje</h3>
-      <p>Modalidad actual: <b class="modalidad">Leer</b></p>
+      <p>Modalidad actual: <b class="modalidad">Leer</b></p><button class="btn sec" onclick="ir(1)">↻ Cambiar modalidad</button>
       <p>Selecciona un tema:</p>
       <button class="btn sec" onclick="pregunta('¿Qué es la inteligencia artificial?')">Inteligencia artificial</button>
       <p><button class="btn sec" onclick="pregunta('¿Qué es el aprendizaje automático?')">Aprendizaje automático</button></p>
@@ -296,6 +365,7 @@ footer {text-align:center;color:#64748b;padding:25px;font-size:13px}
           <div style="color:#059669;font-size:12px">● Disponible</div>
         </div>
       </div>
+      <div class="estado-flujo">1. Modalidad: <b class="modalidad">Leer</b> &nbsp;→&nbsp; 2. Tema o consulta &nbsp;→&nbsp; 3. Respuesta adaptada</div>
       <div id="mensajes" class="mensajes" aria-live="polite">
         <div class="burbuja ia">
           ¡Hola! Soy Asistente DUA-IA.
@@ -305,16 +375,17 @@ footer {text-align:center;color:#64748b;padding:25px;font-size:13px}
       <form class="entrada" onsubmit="enviar(event)">
         <input id="consulta" placeholder="Escribe tu consulta..."
                aria-label="Consulta del estudiante">
-        <button class="btn">Enviar ➤</button>
+        <button class="btn" type="submit">Enviar ➤</button><button class="btn sec" type="button" id="botonMicrofono" onclick="alternarMicrofono()" hidden>🎙️ Hablar</button>
       </form>
       <div class="acciones">
         <button class="btn sec" onclick="otraForma()">↻ Explicar de otra forma</button>
         <button class="btn sec" onclick="darEjemplo()">⭐ Dar ejemplo</button>
-        <button class="btn sec" onclick="leerRespuesta()">🔊 Escuchar</button>
+        <button class="btn sec" id="botonDetenerAudio" onclick="detenerAudio()" hidden>■ Detener audio</button>
         <button class="btn sec" onclick="guardar()">⬇ Guardar conversación</button>
       </div>
     </div>
   </div>
+  
   <div class="recurso" id="recurso">
     💡 Recurso complementario: realiza una consulta para recibir una recomendación.
   </div>
@@ -325,18 +396,28 @@ footer {text-align:center;color:#64748b;padding:25px;font-size:13px}
   <h2>Pantalla 3. Panel docente</h2>
   <p>Seguimiento del aprendizaje mediante indicadores de demostración.</p>
   <div class="estadisticas">
-    <div class="card"><small>💬 Consultas</small><div class="numero" id="total">0</div>Realizadas</div>
-    <div class="card"><small>👥 Estudiantes</small><div class="numero">1</div>Sesión de prueba</div>
-    <div class="card"><small>⚠️ Solicitudes de refuerzo</small><div class="numero" id="refuerzos">0</div>Explicaciones adicionales</div>
-    <div class="card"><small>📚 Modalidad</small><div class="numero modalidad" style="font-size:23px">Leer</div>Seleccionada</div>
+    <div class="card docente-metrica"><span class="docente-icono" aria-hidden="true">💬</span><small>Consultas</small><div class="numero" id="total">0</div>Realizadas</div>
+    <div class="card docente-metrica"><span class="docente-icono" aria-hidden="true">👥</span><small>Estudiantes</small><div class="numero">1</div>Sesión de prueba</div>
+    <div class="card docente-metrica"><span class="docente-icono" aria-hidden="true">⚠️</span><small>Solicitudes de refuerzo</small><div class="numero" id="refuerzos">0</div>Explicaciones adicionales</div>
+    <div class="card docente-metrica"><span class="docente-icono" aria-hidden="true">📚</span><small>Modalidad</small><div class="numero modalidad" style="font-size:23px">Leer</div>Seleccionada</div>
   </div>
   <div class="grid" style="margin-top:20px">
     <div class="card">
-      <h3>Consultas por modalidad</h3>
+      <div class="docente-panel-title"><span class="docente-icono" aria-hidden="true">📊</span><h3>Consultas por modalidad</h3></div>
+      <div class="docente-chart">
+        <div class="donut" id="donutModalidades" role="img" aria-label="Gráfico circular de consultas por modalidad">
+          <div class="donut-center"><strong id="donutTotal">0</strong><small>consultas totales</small></div>
+        </div>
+        <div class="donut-legend">
+          <div class="legend-item"><span class="legend-dot" style="background:#0866ed"></span>Leer: <b id="pctLeer">0%</b></div>
+          <div class="legend-item"><span class="legend-dot" style="background:#10ae82"></span>Escuchar: <b id="pctEscuchar">0%</b></div>
+          <div class="legend-item"><span class="legend-dot" style="background:#8744dc"></span>Visualizar: <b id="pctVer">0%</b></div>
+        </div>
+      </div>
       <div id="estadisticasModo"></div>
     </div>
     <div class="card">
-      <h3>Consultas recientes</h3>
+      <div class="docente-panel-title"><span class="docente-icono" aria-hidden="true">📝</span><h3>Consultas recientes</h3></div>
       <div id="consultasRecientes">Aún no hay consultas.</div>
       <div class="aviso">
         Recomendación: reforzar los temas que generan más preguntas
@@ -344,63 +425,13 @@ footer {text-align:center;color:#64748b;padding:25px;font-size:13px}
       </div>
     </div>
   </div>
+  <div class="card" style="margin-top:20px">
+    <h3>🖼️ Recurso visual Genially (opcional)</h3>
+    <p>Introduce el enlace público de una infografía de Genially creada por el docente. Se mostrará al estudiante que elija «Prefiero ver». Sin enlace, se utiliza un esquema interactivo de demostración.</p>
+    <div class="entrada" style="padding:0"><input id="geniallyURL" type="url" placeholder="https://view.genially.com/..." aria-label="Enlace público de Genially"><button class="btn" onclick="configurarGenially()">Guardar enlace</button></div>
+    <small id="geniallyEstado">No hay recurso Genially configurado.</small>
+  </div>
   <p><small>Los datos corresponden únicamente a esta demostración, no a estudiantes reales.</small></p>
-</section>
-
-<!-- PANTALLA 4 -->
-<section id="p4" class="pantalla">
-  <h2>Pantalla 4. Demo interactiva</h2>
-  <div class="grid">
-    <div class="card">
-      <h3>¿Cómo prefieres aprender?</h3>
-      <div class="modos" style="grid-template-columns:1fr">
-        <button class="modo leer elegido" data-modo="leer" onclick="elegir('leer')">📖 Leer</button>
-        <button class="modo escuchar" data-modo="escuchar" onclick="elegir('escuchar')">🎧 Escuchar</button>
-        <button class="modo ver" data-modo="ver" onclick="elegir('ver')">▶️ Visualizar</button>
-      </div>
-    </div>
-    <div class="card">
-      <div style="display:flex;align-items:center;gap:12px">
-        <div class="avatar">
-          <svg><use href="#robotDUA"></use></svg>
-        </div>
-        <b>¡Hola! Soy tu asistente virtual.</b>
-      </div>
-      <p>¿Qué es la inteligencia artificial?</p>
-      <button class="btn" onclick="demostrar()">Generar explicación</button>
-      <div id="respuestaDemo" class="recurso">
-        Selecciona una modalidad y pulsa el botón.
-      </div>
-      <button class="btn sec" onclick="ir(2)">Abrir chat completo →</button>
-    </div>
-  </div>
-  <div class="card" style="margin-top:18px">
-    <h3>Características del asistente</h3>
-    <p>✅ Aprendizaje flexible · ✅ Explicaciones alternativas · ✅ Ejemplos prácticos · ✅ Seguimiento docente</p>
-  </div>
-</section>
-
-<!-- PANTALLA 5 -->
-<section id="p5" class="pantalla">
-  <h2>Pantalla 5. Flujo de interacción</h2>
-  <div class="card">
-    <div class="flujo">
-      <div class="paso">👤 El estudiante accede al Asistente DUA-IA</div>
-      <div class="flecha">↓</div>
-      <div class="paso">📖 Selecciona leer, escuchar o visualizar</div>
-      <div class="flecha">↓</div>
-      <div class="paso">💬 Realiza una consulta sobre un tema</div>
-      <div class="flecha">↓</div>
-      <div class="paso">🧠 La IA procesa la consulta y adapta la respuesta</div>
-      <div class="flecha">↓</div>
-      <div class="paso">📊 Se registra la interacción para el docente</div>
-      <div class="flecha">↓</div>
-      <div class="paso">✅ Se recomienda el siguiente recurso de aprendizaje</div>
-    </div>
-    <p style="text-align:center;margin-top:20px">
-      <button class="btn" onclick="ir(1)">↻ Reiniciar recorrido</button>
-    </p>
-  </div>
 </section>
 
 </main>
@@ -444,6 +475,32 @@ function elegir(valor) {
   });
 }
 
+
+function abrirChat(valor){
+  detenerAudio();
+  if(reconocimiento&&microfonoActivo){try{reconocimiento.stop()}catch(e){}}
+  elegir(valor);ir(2);
+  const titulos={leer:"📖 Chat · Prefiero leer",escuchar:"🎧 Chat · Prefiero escuchar",ver:"▶️ Chat · Prefiero ver"};
+  const descripciones={leer:"Escribe una pregunta o elige un tema sugerido. Recibirás texto y glosario.",escuchar:"Escribe o dicta tu pregunta. Escucharás la respuesta automáticamente y verás su transcripción.",ver:"Escribe una consulta o elige un tema. Para inteligencia artificial verás el Genially dentro del chat."};
+  document.getElementById("tituloChat").textContent=titulos[valor];
+  document.getElementById("descripcionChat").textContent=descripciones[valor];
+  document.getElementById("botonMicrofono").hidden=valor!=="escuchar";
+  document.getElementById("botonDetenerAudio").hidden=valor!=="escuchar";
+  document.getElementById("consulta").placeholder=valor==="escuchar"?"Escribe o pulsa 🎙️ Hablar...":"Escribe tu consulta...";
+}
+let reconocimiento=null,microfonoActivo=false;
+function alternarMicrofono(){
+ const Reconocimiento=window.SpeechRecognition||window.webkitSpeechRecognition;
+ if(!Reconocimiento){agregar("El reconocimiento de voz no está disponible en este navegador. Prueba Chrome o Edge con permisos de micrófono, o escribe tu pregunta.","ia");return;}
+ if(microfonoActivo&&reconocimiento){reconocimiento.stop();return;}
+ reconocimiento=new Reconocimiento();reconocimiento.lang="es-PE";reconocimiento.interimResults=false;reconocimiento.continuous=false;
+ reconocimiento.onstart=()=>{microfonoActivo=true;document.getElementById("botonMicrofono").textContent="🔴 Escuchando...";};
+ reconocimiento.onend=()=>{microfonoActivo=false;document.getElementById("botonMicrofono").textContent="🎙️ Hablar";};
+ reconocimiento.onerror=e=>agregar("No se pudo reconocer la voz ("+e.error+"). Comprueba los permisos del micrófono.","ia");
+ reconocimiento.onresult=e=>{const frase=e.results[0][0].transcript;procesar(frase);};
+ try{reconocimiento.start()}catch(e){agregar("No se pudo activar el micrófono.","ia");}
+}
+function detenerAudio(){if("speechSynthesis" in window)window.speechSynthesis.cancel();}
 function hablar(texto) {
   if(!("speechSynthesis" in window)) {
     alert("Tu navegador no admite lectura en voz alta.");
@@ -469,9 +526,6 @@ function respuesta(texto) {
     r="Vamos a estudiar tu consulta: "+texto+
     "\n\nPrimero identifica el concepto principal, luego revisa sus características y finalmente relaciónalo con un ejemplo cotidiano.";
   }
-  if(modo==="ver") {
-    r+="\n\n🖼️ Esquema visual:\nConcepto → Características → Ejemplo → Aplicación";
-  }
   return r;
 }
 
@@ -484,19 +538,32 @@ function agregar(texto,tipo) {
   zona.scrollTop=zona.scrollHeight;
 }
 
-function procesar(texto) {
-  if(!texto.trim()) return;
-  ultimaPregunta=texto;
-  agregar(texto,"usuario");
-  consultas.push({texto,modo});
-  ultimaRespuesta=respuesta(texto);
-  agregar(ultimaRespuesta,"ia");
-  document.getElementById("recurso").textContent=
-    "💡 Siguiente paso: escribe un ejemplo propio o solicita una explicación alternativa.";
-  if(modo==="escuchar") hablar(ultimaRespuesta);
-  actualizarPanel();
+function procesar(texto){
+ if(!texto.trim())return;
+ detenerAudio();ultimaPregunta=texto;agregar(texto,"usuario");consultas.push({texto,modo});ultimaRespuesta=respuesta(texto);
+ if(modo==="leer"){
+   agregar("📖 Explicación escrita:\n"+ultimaRespuesta,"ia");
+   agregar("📚 Glosario:\n• Concepto: idea principal del tema.\n• Aplicación: uso práctico del conocimiento.","ia");
+ }else if(modo==="escuchar"){
+   agregar("🎧 Transcripción de la respuesta:\n"+ultimaRespuesta,"ia");hablar(ultimaRespuesta);
+ }else{
+   agregar("▶️ "+ultimaRespuesta,"ia");insertarGeniallyChat(texto);
+ }
+ document.getElementById("recurso").textContent="💡 Puedes hacer otra pregunta, pedir un ejemplo o cambiar la modalidad desde Bienvenida.";
+ actualizarPanel();
 }
-
+function insertarGeniallyChat(pregunta){
+ const enlace=/inteligencia artificial/i.test(pregunta)?"https://view.genially.com/6aed6b9c7556ff377692ce87":geniallyEnlace;
+ const zona=document.getElementById("mensajes");const bloque=document.createElement("div");bloque.className="burbuja ia mensaje-genially";
+ if(!enlace){bloque.textContent="No hay un Genially asociado a este tema. Selecciona «Inteligencia artificial» para ver el recurso disponible o solicita al docente otro enlace.";}
+ else{
+   const titulo=document.createElement("strong");titulo.textContent="Infografía interactiva (Genially)";
+   const frame=document.createElement("iframe");frame.src=enlace;frame.title="Genially interactivo";frame.loading="lazy";frame.allowFullscreen=true;frame.className="genially-chat-frame";
+   const link=document.createElement("a");link.href=enlace;link.target="_blank";link.rel="noopener noreferrer";link.textContent="Abrir Genially en otra pestaña";
+   bloque.append(titulo,frame,link);
+ }
+ zona.appendChild(bloque);zona.scrollTop=zona.scrollHeight;
+}
 function enviar(evento) {
   evento.preventDefault();
   const input=document.getElementById("consulta");
@@ -515,12 +582,27 @@ function otraForma() {
   ultimaRespuesta="Vamos a explicarlo de manera sencilla. Piensa en una situación cotidiana relacionada con: "+ultimaPregunta+
     "\n\nIdentifica qué problema resuelve, cómo funciona y para qué puede servir.";
   agregar(ultimaRespuesta,"ia");
+  if(modo==="escuchar") hablar(ultimaRespuesta);
   actualizarPanel();
 }
 
 function darEjemplo() {
-  ultimaRespuesta="Ejemplo práctico: un estudiante utiliza un asistente virtual para comprender un concepto, recibe una explicación sencilla y después intenta resolver una actividad por su cuenta.";
-  agregar(ultimaRespuesta,"ia");
+  if(!ultimaPregunta){
+    agregar("Primero escribe o dicta un tema para recibir un ejemplo relacionado.","ia");
+    return;
+  }
+  const q=ultimaPregunta.toLowerCase();
+  if(q.includes("cloud")||q.includes("nube")){
+    ultimaRespuesta="Ejemplo práctico: una estudiante guarda sus trabajos en la nube y puede abrirlos desde su computadora o teléfono sin llevar una memoria USB.";
+  }else if(q.includes("aprendizaje automático")){
+    ultimaRespuesta="Ejemplo práctico: una plataforma aprende de las películas que has visto y recomienda otras parecidas según tus preferencias.";
+  }else if(q.includes("inteligencia artificial")||/\bia\b/.test(q)){
+    ultimaRespuesta="Ejemplo práctico: un estudiante pregunta a un asistente de inteligencia artificial cómo resolver un problema y recibe una explicación con pasos que después debe comprobar.";
+  }else{
+    ultimaRespuesta="Ejemplo práctico relacionado con «"+ultimaPregunta+"»: piensa en una situación cotidiana donde se aplica este tema, identifica el problema, cómo se utiliza y qué resultado se obtiene.";
+  }
+  agregar("⭐ "+ultimaRespuesta,"ia");
+  if(modo==="escuchar") hablar(ultimaRespuesta);
 }
 
 function leerRespuesta() {
@@ -539,11 +621,6 @@ function guardar() {
   URL.revokeObjectURL(url);
 }
 
-function demostrar() {
-  const texto=respuesta("¿Qué es la inteligencia artificial?");
-  document.getElementById("respuestaDemo").textContent=texto;
-  if(modo==="escuchar") hablar(texto);
-}
 
 function actualizarPanel() {
   document.getElementById("total").textContent=consultas.length;
@@ -553,6 +630,20 @@ function actualizarPanel() {
   const total=Math.max(consultas.length,1);
   const contadores={leer:0,escuchar:0,ver:0};
   consultas.forEach(c=>contadores[c.modo]++);
+
+  const donut=document.getElementById("donutModalidades");
+  const leerPct=contadores.leer/total*100;
+  const escucharPct=contadores.escuchar/total*100;
+  const verPct=contadores.ver/total*100;
+  document.getElementById("donutTotal").textContent=consultas.length;
+  document.getElementById("pctLeer").textContent=Math.round(leerPct)+"%";
+  document.getElementById("pctEscuchar").textContent=Math.round(escucharPct)+"%";
+  document.getElementById("pctVer").textContent=Math.round(verPct)+"%";
+  donut.style.setProperty("--leer",leerPct+"%");
+  donut.style.setProperty("--escuchar",(leerPct+escucharPct)+"%");
+  donut.setAttribute("aria-label",`Consultas: Leer ${Math.round(leerPct)}%, Escuchar ${Math.round(escucharPct)}%, Visualizar ${Math.round(verPct)}%`);
+  if(!consultas.length) donut.style.background="conic-gradient(#e8eef9 0 100%)";
+  else donut.style.background="";
 
   const zona=document.getElementById("estadisticasModo");
   zona.replaceChildren();
@@ -580,6 +671,15 @@ function actualizarPanel() {
     p.textContent="💬 "+c.texto+" ("+nombres[c.modo]+")";
     recientes.appendChild(p);
   });
+}
+
+let geniallyEnlace="";
+function configurarGenially(){
+ const valor=document.getElementById("geniallyURL").value.trim();
+ if(!valor){geniallyEnlace="";document.getElementById("geniallyEstado").textContent="Enlace eliminado; se mostrará el esquema de demostración.";return;}
+ try{const u=new URL(valor);if(u.protocol!=="https:" || !(u.hostname==="genially.com" || u.hostname.endsWith(".genially.com"))){throw Error("URL no admitida");}
+ geniallyEnlace=u.href;document.getElementById("geniallyEstado").textContent="Recurso Genially configurado para esta sesión.";
+ }catch(e){document.getElementById("geniallyEstado").textContent="Utiliza un enlace HTTPS público de genially.com";}
 }
 actualizarPanel();
 </script>
